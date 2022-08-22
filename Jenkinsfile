@@ -5,6 +5,10 @@ pipeline {
         stage ('Build') {
             steps {
                 echo 'Building ...'
+                git 'https://github.com/apache/maven-sources/'
+                withMaven {
+                    sh 'mvn clean install'
+                }
             } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
         }
         stage('test') {
